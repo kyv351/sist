@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>공지사항</title>
+<link href='../css/reset.css' rel='stylesheet' type='text/css'/>
+<link href='../customerOld/css/layout.css' rel='stylesheet' type='text/css'/>
+<script type="text/javascript" src="../js/modernizr.js"></script>
+<style>
+	body{
+		font-family : 돋움, Arial, sans-serif;
+		color:#979797;
+		font-size : 11px;	
+	}
+	
+	.button{
+		display : inline-block;
+		overflow : hidden;
+		border : 0px;
+		text-indent : -100px;
+	}
+	
+	.button:hover{
+		cursor : pointer;
+	}	
+	.zoom-button{
+		width : 31px;
+		height : 25px;
+		background: url("../images/btn-zoom.png") no-repeat center;
+		position : absolute;
+		right : 0px;
+		top : 0px;
+		border-left : 1px solid #8CBA34;
+	}
+	
+	.search-button{
+		width : 49px;
+		height : 23px;
+		background: url("../images/btn-search.png") no-repeat center;
+	}
+	.Customer-button{
+		width : 72px;
+		height : 17px;
+		background: url("../images/menu-Customer.png") no-repeat center;
+	}
+	.MyPage-button{
+		width : 72px;
+		height : 17px;
+		background: url("../images/menu-MyPage.png") no-repeat center;
+	}
+	#main-title{
+		font : 맑은 고딕, 고딕, sans-serif;
+		font-size : 21px;
+		font-weight : bold;
+		color : #646464;
+		padding-left: 25px;
+		background : url("../images/icon-main-title.png") no-repeat left center;
+	}
+	
+	#main-menu{
+		/* border : 1px solid red; */
+		display : inline-block;
+	}
+	
+	#main-menu li{
+		padding-left: 24px;
+		background : url("../images/bg-main-menu-vsp.png") no-repeat;
+		float : left
+	}
+	
+	#main-menu li a{
+		font : 맑은 고딕, 고딕, sans-serif;
+		font-size : 15px;
+		font-weight : bold;
+		color : #000000;
+		text-decoration: none;
+	}
+	
+	#main-menu li a:hover{
+		text-decoration: underline;
+	}
+	
+	#main-menu li:first-child{
+		padding : 0px;
+		background : none;
+		
+	}
+	
+	#member-menu li{
+		padding-left: 9px;
+		background : url("../images/bg-member-menu-vsp.png") no-repeat;
+		float : left
+	}
+	
+	#member-menu li a{
+		font : 맑은 고딕, 고딕, sans-serif;
+		font-size : 10px;
+		font-weight : bold;
+		color : #000000;
+		text-decoration: none;
+	}
+	#member-menu li:first-child{
+		padding : 0px;
+		background : none;
+		
+	}
+	
+	#customer-menu li{
+		padding : 1px;
+		float : left
+	}
+	#lecture-search-form{
+		/* width : 308px; */
+		position : relative;
+		width : 222px; /* 308 - 55(label) - 31(버튼 공간) */
+		padding-left : 55px;
+		padding-right : 31px;
+		height : 25px;
+		border : 5px solid #8CBA34;
+	}
+	.hidden{
+		display : none;
+	}
+	#lecture-search-form input[type="text"]{
+		width : 100%; 
+		height : 25px;
+		background : yellow;
+		border : 0px;
+	}
+	#lecture-search-form label{
+		position : absolute;
+		left : 0px;
+		top : 0px;
+		width : 55px;		/* label은 inline형식이므로 너비 높이가 먹지 않는다 */
+		height : 25px;
+		line-height : 25px;
+		background : green;
+		display : inline-block;
+	}
+	
+	
+/* ---------------------------0803 고객센터 메뉴,추천사이트 가구 */	
+	#aside-menu{
+		margin-top: 43px;
+		
+	}
+	 #aside-menu li{
+		background : url("../images/bg-aside-menu-hsp.png") repeat-x left bottom;
+		height : 26px;
+		line-height : 26px;
+	}
+	
+	#aside-menu li a{
+		font : 맑은 고딕, 고딕, sans-serif;
+		font-weight : bold;
+		color : #808080;
+		padding-left : 26px;
+		text-decoration: none;	
+	}
+	
+	#aside-menu li a:hover{
+		background : url("../images/icon-current.png") no-repeat 15px center;
+	}
+	
+	.aside-title {
+    font-family: 맑은 고딕, 고딕, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+	}
+	
+	.recommend-sites > h1 {
+    font-family: 맑은 고딕, 고딕, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    color: #000;
+    padding-left: 26px;
+    background: url("../images/icon-recommend.png") no-repeat left center;
+	}
+	
+	.recommend-sites{
+		margin-top: 30px;
+	}
+	
+	
+/* ----0804 공지사항 가구 */
+	#notice{
+		border-top : 2px solid #8cba35;
+		width : 720px;
+	}
+	
+	#notice tr{
+		height : 30px;
+		line-height : 30px;
+		
+	}
+	
+	#notice td, #notice th{
+		border-bottom : 1px solid #e9e9e9;
+		text-align: center;	
+	}
+	
+	
+	#notice th:first-child,
+	#notice td:first-child{
+		width : 60px;
+	}
+	
+	#notice th:first-child+th,
+	#notice td:first-child+td{
+		width : 400px;
+	}	
+	
+	#notice th:first-child+th+th,
+	#notice td:first-child+td+td{
+		width : 100px;
+	}
+	
+	#notice th:first-child+th+th+th,
+	#notice td:first-child+td+td+td{
+		width :100px;
+	}
+	
+	#notice th:last-child, #notice td:last-child{
+		width : 60px;
+	}
+	
+	#notice th{
+		background: #f5f5f5 url("../images/bg-title-sp.png") no-repeat left center;
+	}
+	
+	#notice th:first-child{
+		background: #f5f5f5;
+	}
+	
+
+	
+/* 	--------------------배치정보. 가구만들기와는 다르다 */
+	.content-wrapper{
+		position : relative
+	}
+	
+	#logo{
+		position : absolute;
+		left : 0px;
+		top : 23px;
+	}
+	
+	#main-menu{
+		position : absolute;
+		left : 200px;
+		top : 27px;	
+	}
+	
+	#lecture-search-form{
+		position : absolute;
+		left : 468px;
+		top : 21px;
+	
+	}
+	
+	#member-menu{
+		position : absolute;
+		right : 0px;
+		top : 21px;
+		
+	}
+	
+	#customer-menu{
+		position : absolute;
+		right : 0px;
+		bottom : 9px;
+		
+	}
+	
+	
+	
+	
+
+</style> 
+<!-- <style>
+	#main-menu a{
+		color:green;
+		font-weight:bold;
+	}
+	
+	#main-menu li:first-child+li+li a{
+		color:#F40FC6;
+		font-weight:bold;
+	}
+	
+	 #main-menu li:nth-child(2) a{
+		color:skyblue;
+		font-weight:bold;
+	} 
+</style> -->
+</head>
+<body>
+	<header id="header">
+		<div class="content-wrapper">
+ 		 <h1 id="logo">
+			<img src="../images/logo.png" alt="뉴렉처">
+		</h1> 		
+		
+		<section class="h1">
+			<h1 class="hidden">머리말</h1>
+
+			<nav id="main-menu">
+				<h1 class="hidden">메인메뉴</h1>
+				<ul class="clearfix">
+					<li><a href="">학습가이드</a></li>
+					<li><a href="">뉴렉과정</a></li>
+					<li><a href="">강좌선택</a></li>
+				</ul>
+			</nav>
+
+
+			<section id="lecture-search-form">
+				<h1 class="h1 hidden">강좌검색 폼</h1>
+				<form>
+					<fieldset>
+						<legend class="hidden">검색정보</legend>
+						<label>과정검색</label> 
+						<input type="text" /> 
+						<input class="button zoom-button" type="submit"value="검색" />
+					</fieldset>
+				</form>
+			</section>
+
+			<nav id = "member-menu">
+				<h1 class="hidden">회원메뉴</h1>
+				<ul class="clearfix">
+					<li><a href="">HOME</a></li>
+					<li><a href="">로그인</a></li>
+					<li><a href="">회원가입</a></li>
+				</ul>
+			</nav>
+
+			<nav id = "customer-menu">
+				<h1 class="hidden">고객메뉴</h1>
+				<ul>
+					<li><a class="button MyPage-button" href="">마이페이지</a></li>
+					<li><a class="button Customer-button" href="">고객센터</a></li>
+				</ul>
+			</nav>
+			
+		</section>  
+		</div>
+	</header>
+	
+	<div id="visual">
+		<div class="content-wrapper"></div>
+	</div>
+	
+	<div id="body">
+	<div class="content-wrapper clearfix">	
+	<aside id="aside">
+		 <h1 class="aside-title">고객센터</h1>
+		
+		<nav id="aside-menu">
+			<h1 class="hidden">고객센터 메뉴</h1>
+				<ul>
+					<li><a href="">공지사항</a></li>
+					<li><a href="">1:1 고객문의</a></li>
+					<li><a href="">학습안내</a></li>
+				</ul>		
+		</nav>
+		
+		<nav class="recommend-sites">
+			<h1>추천사이트</h1>
+				<ul>
+					<li><a href=""><img src="../images/answeris.png" alt="answeris"/></a></li>
+					<li><a href=""><img src="../images/tune-a.png" alt="tune-a"/></a></li>
+				</ul>
+		</nav>	
+			
+	</aside>
+	
+	<main id="main" class="clearfix">
+			
+		 <section>
+		<h1 id="main-title">공지사항</h1>
+		
+		<section>
+			<h1>경로</h1>
+			<ul>
+				<li><a href="">HOME</a></li>
+				<li><a href="">고객센터</a></li>
+				<li><a href="">공지사항</a></li>
+			</ul>
+		</section>
+		
+		<section>
+			<h1>공지사항 검색폼</h1>
+			<form>
+				<fieldset>
+					<legend>공지사항 검색정보</legend>
+					<label>검색필드</label>
+						<select>
+							<option>제목</option>
+							<option>작성자</option>
+						</select>
+					<label>검색어</label>
+					<input type = "text"/> 
+					<input class="button search-button" type = "submit" value="검색" />
+				</fieldset> 
+			</form>
+		</section>
+		
+		<section id="notice">
+			<h1 class="hidden">공지사항 목록</h1>
+			<table>
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>작성일</th>
+						<th>조회수</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr>
+						<td>39</td>
+						<td><a href="noticeDetail.html">무료 쿠폰 사용법</a></td>
+						<td>admin</td>
+						<td>2015-06-29</td>
+						<td>1</td>
+					</tr>
+					<tr>
+						<td>38</td>
+						<td><a href="noticeDetail.html">JAVASCRIPT 무료쿠폰 공지 안내</a></td>
+						<td>admin</td>
+						<td>2015-06-29</td>
+						<td>1</td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+		
+		<section>
+			<h1>현재 페이지 번호</h1>
+			<p>1 of 3 pages</p>
+		</section>
+		
+		<nav> <!-- 하이퍼링크 있는 것은 nav -->
+			<h1>페이저</h1>		
+			<ul>
+				<li><a href="">1</a></li> 
+				<li><a href="">2</a></li> 
+				<li><a href="">3</a></li> 
+				<li><a href="">4</a></li>
+				<li><a href="">5</a></li>
+			</ul>
+		</nav>
+		</section>
+		</div>
+	</main>
+	<!--  <div style="clear:left"></div>  -->
+	</div>
+	
+	<aside></aside>
+	
+	<footer id="footer">
+		<div class="content-wrapper">
+		 <section>
+			<h1>뉴렉처</h1>
+
+			<section>
+				<h1>관리자 정보</h1>
+				<dl>
+					<dt>주소 :</dt>
+					<dd>서울특별시 동대문구 장안1동 423-4번지 윤진빌딩 4층</dd>
+					<dt>관리자메일 :</dt>
+					<dd>admin@newlecture.com</dd>
+					<dt>전화 :
+					<dt>
+					<dd>02-478-4084</dd>
+					<dt>사업자 등록번호 :
+					<dt>
+					<dd>132-18-46763</dd>
+					<dt>통신 판매업 신고 :</dt>
+					<dd>제 2013 - 서울강동 - 0969호</dd>
+					<dt>상호 :</dt>
+					<dd>뉴렉처</dd>
+					<dt>대표 :</dt>
+					<dd>박용우</dd>
+					<dt>관리자 :</dt>
+					<dd>전성일</dd>
+				</dl>
+			</section>
+
+			<section>
+				<h1>저작권 정보</h1>
+				<p>Copyright ⓒ newlecture.com 2012-2014 All Right Reserved.</p>
+			</section>
+		</section>
+		</div>
+	</footer>
+	<aside id="quick-menu">QUICK MENU</aside>
+</body>
+</html>

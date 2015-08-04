@@ -1,0 +1,38 @@
+@CHARSET "UTF-8";
+	/* .h1{	
+		color:blue;
+	}
+	h1.h1{
+		color:orange;
+	}
+	nav[id ="h1"]{
+		color:red;
+		font-weight:bold;
+	} */
+	
+	/*#main-menu{
+		color:skyblue;
+	}
+	 input[type="submit"]{
+		color: pink; 속성의 값까지도 필터링 가능
+	}*/
+	
+/* 	header > section.h1 > nav{
+		color : blue;
+	}
+	
+	header > section.h1 > nav+nav{
+		color : orange;
+	} */
+	
+	#lecture-search-form input[type="text"]{
+		color : skyblue;
+	}
+	
+	/* #lecture-search-form > form > fieldset> input[type="text"]{
+		color : red;
+	}  */
+ 
+	/*  #lecture-search-form > form > fieldset> legend+label+input[type="text"]{
+		color : brown;
+	}  */

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+     
+     <bean id="prince" class="com.newlecture.web.dao.mybatis.MyBatisNoticeDao"></bean><!-- 왕자님 -->
+     <bean id="logBeforeAdvice" class="com.newlecture.web.aop.LogBeforeAdvice"></bean><!-- proxy가 사용하는 곁다리 업무  -->
+      <bean id="logAroundAdvice" class="com.newlecture.web.aop.LogAroundAdvice"></bean>
+      
+      <bean id="noticePointcut" class="org.springframework.aop.support.NameMatchMethodPointcut">
+      	<property name="mappedNames">
+      		<list>
+      	    	<value>getNotices</value> 
+      	    </list>
+      	</property>      
+      </bean>
+      
+      <bean id="noticeAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+      	<property name="pointcut" ref="noticePointcut"></property>  
+      	<property name="advice" ref="logBeforeAdvice"></property>      
+      </bean>
+      
+      
+      <!-- 보조업무를 가지고 있는 proxy. 중간에 인터럽트해서 곁다리 업무를 껴 넣고 왕자님 호출 -->
+     <bean id="noticeDao" class="org.springframework.aop.framework.ProxyFactoryBean"><!-- proxy -->
+     	<property name="target" ref="prince"></property><!-- 주 업무. 왕자님 -->
+     	<property name="interceptorNames">
+     		<list>
+     			<value>noticeAdvisor</value>
+     			<!-- <value>logBeforeAdvice</value>보조업무. 곁다리업무
+     			<value>logAroundAdvice</value> -->
+     		</list>
+     		
+     	</property>
+     </bean>
+
+
+
+</beans>
