@@ -1,0 +1,41 @@
+body{
+		font-family : µ¸¿ò, Arial, sans-serif;
+		color:#979797;
+		font-size : 11px;	
+	}
+	
+	.button{
+		display : inline-block;
+		overflow : hidden;
+		border : 0px;
+		text-indent : -100px;
+	}
+	
+	.button:hover{
+		cursor : pointer;
+	}	
+	.zoom-button{
+		width : 31px;
+		height : 25px;
+		background: url("../../images/btn-zoom.png") no-repeat center;
+		position : absolute;
+		right : 0px;
+		top : 0px;
+		border-left : 1px solid #8CBA34;
+	}
+	
+	.search-button{
+		width : 49px;
+		height : 23px;
+		background: url("../../images/btn-search.png") no-repeat center;
+	}
+	.Customer-button{
+		width : 72px;
+		height : 17px;
+		background: url("../../images/menu-Customer.png") no-repeat center;
+	}
+	.MyPage-button{
+		width : 72px;
+		height : 17px;
+		background: url("../../images/menu-MyPage.png") no-repeat center;
+	}

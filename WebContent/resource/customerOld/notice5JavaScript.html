@@ -6,6 +6,7 @@
 <link href='../css/reset.css' rel='stylesheet' type='text/css'/>
 <link href='../customerOld/css/layout.css' rel='stylesheet' type='text/css'/>
 <script type="text/javascript" src="../js/modernizr.js"></script>
+<script type="text/javascript" src="notice.js"></script>
 <style>
 	body{
 		font-family : 돋움, Arial, sans-serif;
@@ -182,46 +183,6 @@
 	
 
 </style> 
-<script type="text/javascript">
-/* 	var x;
-	alert(x == undefined);  
-	
-	var record = {kor:30, eng:70, math:80};
-	alert(record.kor); 
-	
-	var lottos = [5,["hello","gy"], 10, 21];
-	alert(lottos[1][0]); 
-	 
-	var members = [
-	           	{uid: "newlec", name:"뉴렉"},
-	           	{uid:"gy", name:"helloGY"}
-	           ];
-	 alert(members[1].uid);
-	 
-	 alert("32" > "4");  */
-	
-/* 	var x, y;
-	x = prompt("x 값을 입력하세요",0);
-	y = prompt("y 값을 입력하세요",0);
-	alert(typeof x);
-	
-	x = parseInt(x);
-	y = parseInt(y);
-	alert(typeof x);
-	alert(x+y); */
-	
-	/* var ar = ["jw" , "sh", "di","yj" ,"sy","gy"];
-	for(var i in ar)
-		alert(ar[i]); */
-	
-	var m = {name:"gy", age:"25"};
-	alert(m.name); alert(m['name']);
-	alert(m.age); alert(m['age']);
-	
-	for(var k in m)
-		alert(m[k]);
-	
-</script>
 </head>
 <body>
 	<header id="header">
@@ -249,7 +210,8 @@
 					<fieldset>
 						<legend class="hidden">검색정보</legend>
 						<label>과정검색</label> 
-						<input type="text" /> 
+						<!-- <input onclick='printResult();' type="text" /> -->
+						<input id="a" type="text" />
 						<input class="button zoom-button" type="submit"value="검색" />
 					</fieldset>
 				</form>

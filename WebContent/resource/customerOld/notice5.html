@@ -3,278 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title>공지사항</title>
-<link href='../css/reset.css' rel='stylesheet' type='text/css'/>
-<link href='../customerOld/css/layout.css' rel='stylesheet' type='text/css'/>
+<!-- <link href='../css/reset.css' rel='stylesheet' type='text/css'/>
+<link href='../customerOld/css/layout.css' rel='stylesheet' type='text/css'/> -->
+<!-- <link href='../css/notice1.css' rel='stylesheet' type='text/css'/> -->
+<link href='../customer/notice1.css' rel='stylesheet' type='text/css'/>
 <script type="text/javascript" src="../js/modernizr.js"></script>
 <style>
-	body{
-		font-family : 돋움, Arial, sans-serif;
-		color:#979797;
-		font-size : 11px;	
-	}
-	
-	.button{
-		display : inline-block;
-		overflow : hidden;
-		border : 0px;
-		text-indent : -100px;
-	}
-	
-	.button:hover{
-		cursor : pointer;
-	}	
-	.zoom-button{
-		width : 31px;
-		height : 25px;
-		background: url("../images/btn-zoom.png") no-repeat center;
-		position : absolute;
-		right : 0px;
-		top : 0px;
-		border-left : 1px solid #8CBA34;
-	}
-	
-	.search-button{
-		width : 49px;
-		height : 23px;
-		background: url("../images/btn-search.png") no-repeat center;
-	}
-	.Customer-button{
-		width : 72px;
-		height : 17px;
-		background: url("../images/menu-Customer.png") no-repeat center;
-	}
-	.MyPage-button{
-		width : 72px;
-		height : 17px;
-		background: url("../images/menu-MyPage.png") no-repeat center;
-	}
-	#main-title{
-		font : 맑은 고딕, 고딕, sans-serif;
-		font-size : 21px;
-		font-weight : bold;
-		color : #646464;
-		padding-left: 25px;
-		background : url("../images/icon-main-title.png") no-repeat left center;
-	}
-	
-	#main-menu{
-		/* border : 1px solid red; */
-		display : inline-block;
-	}
-	
-	#main-menu li{
-		padding-left: 24px;
-		background : url("../images/bg-main-menu-vsp.png") no-repeat;
-		float : left
-	}
-	
-	#main-menu li a{
-		font : 맑은 고딕, 고딕, sans-serif;
-		font-size : 15px;
-		font-weight : bold;
-		color : #000000;
-		text-decoration: none;
-	}
-	
-	#main-menu li a:hover{
-		text-decoration: underline;
-	}
-	
-	#main-menu li:first-child{
-		padding : 0px;
-		background : none;
-		
-	}
-	
-	#member-menu li{
-		padding-left: 9px;
-		background : url("../images/bg-member-menu-vsp.png") no-repeat;
-		float : left
-	}
-	
-	#member-menu li a{
-		font : 맑은 고딕, 고딕, sans-serif;
-		font-size : 10px;
-		font-weight : bold;
-		color : #000000;
-		text-decoration: none;
-	}
-	#member-menu li:first-child{
-		padding : 0px;
-		background : none;
-		
-	}
-	
-	#customer-menu li{
-		padding : 1px;
-		float : left
-	}
-	#lecture-search-form{
-		/* width : 308px; */
-		position : relative;
-		width : 222px; /* 308 - 55(label) - 31(버튼 공간) */
-		padding-left : 55px;
-		padding-right : 31px;
-		height : 25px;
-		border : 5px solid #8CBA34;
-	}
-	.hidden{
-		display : none;
-	}
-	#lecture-search-form input[type="text"]{
-		width : 100%; 
-		height : 25px;
-		background : yellow;
-		border : 0px;
-	}
-	#lecture-search-form label{
-		position : absolute;
-		left : 0px;
-		top : 0px;
-		width : 55px;		/* label은 inline형식이므로 너비 높이가 먹지 않는다 */
-		height : 25px;
-		line-height : 25px;
-		background : green;
-		display : inline-block;
-	}
-	
-	
-/* ---------------------------0803 고객센터 메뉴,추천사이트 가구 */	
-	#aside-menu{
-		margin-top: 43px;
-		
-	}
-	 #aside-menu li{
-		background : url("../images/bg-aside-menu-hsp.png") repeat-x left bottom;
-		height : 26px;
-		line-height : 26px;
-	}
-	
-	#aside-menu li a{
-		font : 맑은 고딕, 고딕, sans-serif;
-		font-weight : bold;
-		color : #808080;
-		padding-left : 26px;
-		text-decoration: none;	
-	}
-	
-	#aside-menu li a:hover{
-		background : url("../images/icon-current.png") no-repeat 15px center;
-	}
-	
-	.aside-title {
-    font-family: 맑은 고딕, 고딕, sans-serif;
-    font-size: 24px;
-    font-weight: bold;
-    color: #000;
-	}
-	
-	.recommend-sites > h1 {
-    font-family: 맑은 고딕, 고딕, sans-serif;
-    font-size: 13px;
-    font-weight: bold;
-    color: #000;
-    padding-left: 26px;
-    background: url("../images/icon-recommend.png") no-repeat left center;
-	}
-	
-	.recommend-sites{
-		margin-top: 30px;
-	}
-	
-	
-/* ----0804 공지사항 가구 */
-	#notice{
-		border-top : 2px solid #8cba35;
-		width : 720px;
-	}
-	
-	#notice tr{
-		height : 30px;
-		line-height : 30px;
-		
-	}
-	
-	#notice td, #notice th{
-		border-bottom : 1px solid #e9e9e9;
-		text-align: center;	
-	}
-	
-	
-	#notice th:first-child,
-	#notice td:first-child{
-		width : 60px;
-	}
-	
-	#notice th:first-child+th,
-	#notice td:first-child+td{
-		width : 400px;
-	}	
-	
-	#notice th:first-child+th+th,
-	#notice td:first-child+td+td{
-		width : 100px;
-	}
-	
-	#notice th:first-child+th+th+th,
-	#notice td:first-child+td+td+td{
-		width :100px;
-	}
-	
-	#notice th:last-child, #notice td:last-child{
-		width : 60px;
-	}
-	
-	#notice th{
-		background: #f5f5f5 url("../images/bg-title-sp.png") no-repeat left center;
-	}
-	
-	#notice th:first-child{
-		background: #f5f5f5;
-	}
-	
-
-	
-/* 	--------------------배치정보. 가구만들기와는 다르다 */
-	.content-wrapper{
-		position : relative
-	}
-	
-	#logo{
-		position : absolute;
-		left : 0px;
-		top : 23px;
-	}
-	
-	#main-menu{
-		position : absolute;
-		left : 200px;
-		top : 27px;	
-	}
-	
-	#lecture-search-form{
-		position : absolute;
-		left : 468px;
-		top : 21px;
-	
-	}
-	
-	#member-menu{
-		position : absolute;
-		right : 0px;
-		top : 21px;
-		
-	}
-	
-	#customer-menu{
-		position : absolute;
-		right : 0px;
-		bottom : 9px;
-		
-	}
-	
-	
-	
 	
 
 </style> 
@@ -440,12 +174,16 @@
 		</section>
 		
 		<section>
-			<h1>현재 페이지 번호</h1>
+			<h1 class="hidden">현재 페이지 번호</h1>
 			<p>1 of 3 pages</p>
 		</section>
 		
-		<nav> <!-- 하이퍼링크 있는 것은 nav -->
-			<h1>페이저</h1>		
+		<nav id="pager"> <!-- 하이퍼링크 있는 것은 nav -->
+			<h1 class="hidden">페이저</h1>
+			<p> 
+				<a href="">이전</a> 
+			</p> 
+					
 			<ul>
 				<li><a href="">1</a></li> 
 				<li><a href="">2</a></li> 
@@ -453,6 +191,10 @@
 				<li><a href="">4</a></li>
 				<li><a href="">5</a></li>
 			</ul>
+			<p> 
+				<a href="">다음</a> 
+			</p> 
+			
 		</nav>
 		</section>
 		</div>
