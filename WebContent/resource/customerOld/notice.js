@@ -86,7 +86,7 @@
 	   
 	    function init(){
 	    	var btn1 = document.getElementById("a");
-	    	 /*btn1.onclick=printResult; */
+	    	 btn1.onclick=printResult; 
 	    	btn1.onclick=function(){
 	    		var x, y;
 				x = prompt("x 값을 입력하세요",0);
@@ -98,5 +98,15 @@
 	    		
 	    	}
 	    }
-	    window.onload=init;
+	   /* window.onload=init;*/
+
+/*8월 7일 수업*/
+	   // window.addEventListener("load",init);
+	     window.onload = function(){alert("test1")};
+	    window.onload = function(){alert("test2")};
+	    window.onload = function(){alert("test3")};
+	    
+	  /* window.addEventListener("load", function(){alert("test1");});
+	   window.addEventListener("load", function(){alert("test2");});
+	   window.addEventListener("load", function(){alert("test3");});*/
 	
