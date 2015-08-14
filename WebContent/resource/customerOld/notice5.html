@@ -7,11 +7,7 @@
 <link href='../customerOld/css/layout.css' rel='stylesheet' type='text/css'/> -->
 <!-- <link href='../css/notice1.css' rel='stylesheet' type='text/css'/> -->
 <link href='../customer/notice1.css' rel='stylesheet' type='text/css'/>
-<script type="text/javascript" src="../js/modernizr.js"></script>
-<style>
-	
-
-</style> 
+<script type="text/javascript" src="../js/modernizr.js"></script> 
 <!-- <style>
 	#main-menu a{
 		color:green;
@@ -28,6 +24,45 @@
 		font-weight:bold;
 	} 
 </style> -->
+
+<script type="text/javascript">
+	window.addEventListener("load", function(){
+		
+		//var btnAddRow = document.getElementById("btn-add-row");
+		var btnAddRow = document.querySelector("#btn-add-row");
+		
+		var data = [
+			           	{code: "1", title:"TasteCoordi"},
+			           	{code:"2", title:"금욜이당"},
+			           	{code:"3", title:"the luv"},
+			           	{code:"4", title:"플레어스커트"},
+			           	{code:"5", title:"어려워잉"}
+			           ];
+		
+		btnAddRow.onclick=function(){
+			//하나이면 selector 여러개이면 selectorAll
+			var notice = document.querySelector("#notice");
+			var tbody = notice.querySelector("tbody");
+			var row = tbody.querySelector("tr:first-child");
+			//row.style.background="red";
+			
+			
+			
+			for(var i=0; i< data.length; i++){
+				
+				var clone = row.cloneNode(true);
+				
+				clone.querySelector("td:first-child").innerText = data[i].code;
+				clone.querySelector("td:first-child+td > a").innerText =  data[i].title;
+				
+				tbody.appendChild(clone);
+			}
+			
+		};
+		
+	})
+</script>
+
 </head>
 <body>
 	<header id="header">
@@ -172,6 +207,8 @@
 				</tbody>
 			</table>
 		</section>
+		
+		<div><input type="button" value="+" id="btn-add-row"/></div>
 		
 		<section>
 			<h1 class="hidden">현재 페이지 번호</h1>

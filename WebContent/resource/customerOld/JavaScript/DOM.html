@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	window.addEventListener("load", function(){
+		//document.body.childNodes[0].value = "hello";
+		//alert(document.body.childNodes.length);
+		
+		/* var nodes = document.body.childNodes
+		var size = nodes.length;
+		
+		for(var i=0; i<size; i++)
+			alert(nodes[i].nodeType); */
+			
+		 var photos = document.getElementById("photos");
+		var items = photos.getElementsByTagName("img");
+		
+		/*for(var i =0; i<items.length; i++)
+			items[i].src = "ojw.JPG"; */
+		
+		var btnImgChange1 = document.getElementById("btn-img-change1");
+		btnImgChange1.onclick=function(){
+			
+			var txtImage = document.getElementById("txt-img");
+			for(var i =0; i<items.length; i++){
+				items[i].src = "images/"+txtImage.value;
+				items[i].style.border = "3px solid skyblue"
+			}	
+			
+		};
+		
+		var btnImgChange2 = document.getElementById("btn-img-change2");
+		btnImgChange2.onclick=function(){
+			
+			var selectImage = document.getElementById("select-img");
+			for(var i =0; i<items.length; i++)
+				items[i].src = "images/"+selectImage.value;
+			
+		};
+		
+		var btnAddTxt = document.getElementById("btn-add-txt");
+		btnAddTxt.onclick=function(){
+			var parent = 
+				document.getElementById("photos").getElementsByTagName("li")[0];
+			var txt = document.createTextNode("Hello~");
+			parent.appendChild(txt);
+			
+		};
+		
+		var btnDelTxt = document.getElementById("btn-del-txt");
+		btnDelTxt.onclick=function(){
+			var parent = 
+				document.getElementById("photos").getElementsByTagName("li")[0];
+			var txt = parent.lastChild;
+			parent.removeChild(txt);
+			
+		};
+		
+		var btnAddImg = document.getElementById("btn-add-img");
+		btnAddImg.onclick=function(){			
+			var img = document.createElement("img");
+			/* tImg.setAttribute("src", "images/kwb.JPG");
+			tImg.setAttribute("width", "200px");
+			tImg.setAttribute("height", "200px");  */
+			img.src = "images/kwb.JPG";
+			img.width="200";
+			img.height="200"; 
+			document.getElementById("photos").getElementsByTagName("li")[0].appendChild(img);
+		};
+		
+		var btnDelImg = document.getElementById("btn-del-img");
+		btnDelImg.onclick=function(){	
+			var parent = document.getElementById("photos").getElementsByTagName("li")[0];
+			var img = parent.lastChild;
+			parent.removeChild(img);
+		};
+		
+		var btnCloneChild = document.getElementById("btn-clone-child");
+		btnCloneChild.onclick=function(){	
+			var photos = document.getElementById("photos");
+			var lis = photos.getElementsByTagName("li");
+			var target = lis[0];
+			
+			var clone = target.cloneNode(true);//true는 자식까지 복제
+			photos.appendChild(clone);//제일 막내로 복제
+
+		};
+		
+		var btnChangeNodes = document.getElementById("btn-change-nodes");
+		btnChangeNodes.onclick=function(){	
+			var photos = document.getElementById("photos");
+			var chboxs = photos.getElementsByTagName("input");
+			//alert(chboxs[0].checked); //체크박스 선택 유무
+			
+			//선택 개수를 알아보는 코드
+			var cntChecked = 0;
+			for(var i=0; i< chboxs.length; i++)
+				if(chboxs[i].checked) //체크 상태 확인
+					cntChecked++;
+			//alert(cntChecked);
+			
+			/* if(cntChecked != 2)
+				alert("노드는 2개를 선택해야만 합니다"); */
+			
+			var lis = [];
+			
+			for(var i=0, j=0; i<chboxs.length; i++)
+				if(chboxs[i].checked)
+					lis[j++] = chboxs[i].parentNode;
+			
+			//alert(lis[0].nodeName);
+			var node = photos.removeChild(lis[0]);
+			//photos.appendChild(node);
+			photos.insertBefore(node,lis[1]);
+			//photos.insertBefore(lis[1],node);
+
+		};
+	});
+</script>
+</head>
+<body>
+
+	<div>
+		<ul>
+			<li>images/<input id="txt-img" type="text"/>
+			<input id="btn-img-change1" type="button" value="변경"></li>
+			
+			<li>
+				images/
+				<select id="select-img">
+					<option value="kwb.JPG">첫번째 이미지</option>
+					<option value="ojw.JPG">두번째 이미지</option>
+					<option value="ojw2.JPG">세번째 이미지</option>
+				</select>
+				<input id="btn-img-change2" type="button" value="변경">
+			</li>
+			
+			<li>
+				<input type="button" id="btn-add-txt" value="텍스트 추가"/>
+				<input type="button" id="btn-del-txt" value="텍스트 삭제"/>
+				
+				<input type="button" id="btn-add-img" value="이미지 추가"/>
+				<input type="button" id="btn-del-img" value="이미지 삭제"/>
+				
+				<input type="button" id="btn-clone-child" value="첫째 복제"/>
+				
+				<input type="button" id="btn-change-nodes" value="두개의 노드 교체"/>
+			</li>
+			
+		</ul>	
+	</div>
+	
+	<ul id="photos">
+		<li><input type="checkbox"/><img src="images/kwb.JPG" width="200" height="200"></li>
+		<li><input type="checkbox"/><img src="images/ojw.JPG" width="200" height="200"></li>
+		<li><input type="checkbox"/><img src="images/ojw2.JPG" width="200" height="200"></li>
+	</ul>
+	<input />
+</body>
+</html>
