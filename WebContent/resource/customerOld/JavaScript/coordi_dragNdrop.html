@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href='css/reset.css' rel='stylesheet' type='text/css'/>
+<script src="js/jquery-1.11.3.js"></script>
+<style>
+#codi {
+   width: 910px;
+   height: 600px;
+   background: white;
+}
+
+#codi-box {
+   width: 200px;
+   height: inherit;
+   background: yellow;
+   float: left;
+}
+
+#codi-canvas {
+   width: 700px;
+   height: inherit;
+   background: pink;
+   float: left;
+   border-right: white 3px solid;
+   position : relative;
+}
+
+#codi-box img {
+   width: 70px;
+   height: 70px;
+   padding: 7px;
+}
+
+#codi-box li {
+   width: 120px;
+   height: 120px;
+  /*  border: 2px brown solid; */
+   background: beige;
+   
+   border:solid 3px #810c9e;
+	border-top-left-radius:75px;
+	border-top-right-radius:24px;
+	border-bottom-left-radius:23px;
+	border-bottom-right-radius:75px;
+}
+
+ /* #codi-box li:hover{
+	transform : rotate(7.5deg) scaleX(1.2);
+	transform-origin:left top;
+	
+}  */
+
+/* #codi-box img{
+	 opacity : 0.5;
+	 margin-top : 0px; 
+	 transition-property : opacity, rotate(), margin-top;
+	 transition-duration : 1s;
+	 transition-delay : 0.2s;
+	 transition : 1s opacity ease-in-out, 1s margin-top cubic-bezier(0.32, -0.3, 0.69, 1.35);  
+} */
+/* #codi-box img:hover{
+	 opacity : 1.8; 
+	transform : rotate(-17.5deg); 
+	margin-top : 50px;
+	
+} */
+</style>
+<script type="text/javascript">
+   //이벤트 버블링이용하여 codi박스 전체에 이벤트 넣어주기
+   window.addEventListener("load", function() {
+    /*  var imgs = document.querySelectorAll("#codi-box ul img");
+     imgs[0].addEventListener("dragstart", function(event){
+    	alert(event.target.dataset.code); 
+     }); */
+     
+	var imgBox = document.querySelector("#codi-box ul");
+     imgBox.addEventListener("dragstart", function(event){
+    		if(event.target instanceof HTMLImageElement){
+    			var data = {
+    					code : event.target.dataset.code,
+    					src : event.target.dataset.src
+    					};
+    			
+    			event.dataTransfer.setData('text/plain',JSON.stringify(data));
+    			event.dataTransfer.effectAllowed = "move";
+    			
+    		} 
+    		else
+    			event.preventDefault();
+    		    		
+     });
+     
+     var codiCanvas = document.querySelector("#codi-canvas");
+	 codiCanvas.addEventListener("dragover", function(event){
+		 event.preventDefault();
+     });	 
+     codiCanvas.addEventListener("drop", function(event){
+    	 var data = JSON.parse(event.dataTransfer.getData("text/plain"));
+    	var img = document.createElement("img");
+    	img.src = data.src;
+    	img.style.position = "absolute";
+    	img.style.left= (event.offsetX-img.width/2) + "px";
+    	img.style.top=(event.offsetY-img.height/2)+"px";
+    	
+    	img.addEventListener("mousedown",function(event){
+    		dragitem = event.target;
+    			
+    	}); 
+    	
+    	event.target.appendChild(img);
+     });
+     
+     var h1 = document.querySelector("h1");
+     var dragitem = null;
+   
+     document.addEventListener("mousemove", function(event){
+    
+    	// h1.textContent = event.x;
+    	   if(dragitem != null){
+    		   dragitem.style.left = event.x + "px";
+    		   dragitem.style.top = event.y + "px";
+    	 }  
+     });
+     
+     document.addEventListener("mouseup", function(event){
+    	 if(dragitem != null)
+    		 dragitem = null;    	 
+     }); 
+
+   });
+</script>
+
+</head>
+<body>
+   <section>
+      <h1>나의 코디</h1>
+      <div id="codi">
+         <div id="codi-canvas">
+            
+         </div>
+         <div id="codi-box">
+         <div style="cursor:pointer;"">이전</div>
+         	<div style="height:550px; border:1px black solid; overflow : hidden; position:relative;">
+            	<ul style="position:absolute; cursor:pointer;">
+               		<li data-code="1"><img draggable="true" data-code="1" data-src="images/co1.PNG" src="images/co1.PNG"/></li>
+               		<li data-code="2"><img draggable="true" data-code="2" data-src="images/co2.PNG" src="images/co2.PNG"/></li>
+               		<li data-code="3"><img draggable="true" data-code="3" data-src="images/co3.png" src="images/co3.png"/></li>
+               		<li data-code="4"><img draggable="true" data-code="4" data-src="images/co4.png" src="images/co4.png"/></li>
+
+            	</ul>
+            </div>
+            
+            <div>다음</div>
+         </div>
+         <div id= "button-box">
+            <input type="file" id="f" style="display: none;"/>
+            <span style="background: beige; cursor: pointer;">파일선택</span>
+         </div>
+
+      </div>
+   </section>
+</body>
+</html>
