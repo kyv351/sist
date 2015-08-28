@@ -12,5 +12,11 @@ public class HomeController {
 		
 		return "home.index";
 	}
+	
+	@RequestMapping("resource/customerOld/JavaScript/save")
+	public void saveCodi(){
+		
+		
+	}
 
 }

@@ -26,6 +26,7 @@
    float: left;
    border-right: white 3px solid;
    position : relative;
+   overflow: hidden;
 }
 
 #codi-box img {
@@ -101,33 +102,107 @@
     	 var data = JSON.parse(event.dataTransfer.getData("text/plain"));
     	var img = document.createElement("img");
     	img.src = data.src;
+    	img.draggable = false;
+    	img.dataset.code = data.code;
     	img.style.position = "absolute";
     	img.style.left= (event.offsetX-img.width/2) + "px";
     	img.style.top=(event.offsetY-img.height/2)+"px";
     	
     	img.addEventListener("mousedown",function(event){
     		dragitem = event.target;
+    		mouseOffset.x=event.offsetX;
+    		mouseOffset.y=event.offsetY;
     			
     	}); 
+    	
+    	//var ctxMenu = null;
+    	
+    	img.addEventListener("contextmenu",function(event){
+    		//event.target.style.border="1px solid red";
+    		
+    		var curimg = event.target;
+    		
+    		/* if(ctxMenu==null)
+    			ctxMenu = document.createElement("div"); */
+    			var ctxMenu = document.createElement("div");	
+    		ctxMenu.style.width = "100px";
+    		ctxMenu.style.height = "100px";
+    		ctxMenu.style.left = parseInt(event.target.style.left) + event.offsetX + "px";
+    		ctxMenu.style.top = parseInt(event.target.style.top) + event.offsetY + "px";
+    		ctxMenu.style.position = "absolute";
+    		ctxMenu.style.border="1px solid red";
+    		
+    		
+    		event.target.parentNode.appendChild(ctxMenu);
+    		codiCanvas.appendChild(ctxMenu);
+    		
+    		var mnItemBringFont =  document.createElement("div");
+    		mnItemBringFont.style.width = "100px";
+    		mnItemBringFont.style.height = "20px";
+    		mnItemBringFont.style.background = "beige";
+    		mnItemBringFont.textContent="맨앞으로";
+    		mnItemBringFont.addEventListener('click',function(){
+    			//if(ctxMenu !=null){ //다른 클릭에 대해서 사라지게 하려면 전역화해야한다. 
+    				curimg.style.zIndex = 1;
+    				codiCanvas.removeChild(ctxMenu);
+    				//ctxMenu = null; //리팩토링. 조건검사  ctxMenu null이면 createElement("div")  				
+    			//}
+    		});
+    		
+    		ctxMenu.appendChild(mnItemBringFont);
+    		
+    		event.preventDefault();	
+    	});
     	
     	event.target.appendChild(img);
      });
      
      var h1 = document.querySelector("h1");
      var dragitem = null;
+     var mouseOffset = {x:0, y:0};
    
      document.addEventListener("mousemove", function(event){
     
     	// h1.textContent = event.x;
     	   if(dragitem != null){
-    		   dragitem.style.left = event.x + "px";
-    		   dragitem.style.top = event.y + "px";
+    		   /* dragitem.style.left = (event.x-dragitem.width/2) + "px";
+    		   dragitem.style.top = (event.y-dragitem.height/2) + "px"; */
+    		  /*  dragitem.style.left = event.x-mouseOffset.x+document.body.scrollLeft + "px";
+    		   dragitem.style.top = event.y-mouseOffset.y+document.body.scrollTop + "px"; */
+    		   dragitem.style.left = event.pageX-mouseOffset.x + "px";
+    		   dragitem.style.top = event.pageY-mouseOffset.y + "px";
     	 }  
      });
      
      document.addEventListener("mouseup", function(event){
     	 if(dragitem != null)
     		 dragitem = null;    	 
+     }); 
+     
+     var btnSave = document.querySelector("#button-box span:last-child");
+     btnSave.addEventListener("click", function(){
+    	 
+    	var data = "["
+    	 var imgs = codiCanvas.querySelectorAll("img");
+    	 
+    	// var a = "{'code':" + imgs[i].dataset.code + ", 'x':" + imgs[i].style.left + ", 'y':" + imgs[i].style.top + "}";
+    	 for(var i=0; i< imgs.length; i++){
+    		 
+    		 var item = "{'code':'" + imgs[i].dataset.code + "', 'x':" + imgs[i].style.left + ", 'y':" + imgs[i].style.top + "}";
+    		 
+    		 if(i+1 == imgs.length)
+    			 data += item;
+    		 else
+    			 data += item + ',';
+    	 }
+    	 
+    	 data +=']';
+    	// alert(data);
+    	
+    	 var request = new XMLHttpRequest();
+    	 request.open("POST", "resource/customerOld/JavaScript/save");// ../../save
+    	 request.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
+    	 request.send(data);
      }); 
 
    });
@@ -158,9 +233,17 @@
          <div id= "button-box">
             <input type="file" id="f" style="display: none;"/>
             <span style="background: beige; cursor: pointer;">파일선택</span>
+            <span style="background: green; cursor: pointer;border:1px solid black;">코디저장</span>
          </div>
-
       </div>
    </section>
+   
+   <!-- <div id="ctx-menu">
+   		<ul>
+   			<li>맨앞으로</li>
+   			<li>맨뒤로</li>
+   			<li>기타</li>
+   		</ul>   
+   </div> -->
 </body>
 </html>
